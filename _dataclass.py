@@ -64,10 +64,12 @@ class Person:
   # reproduce the basic repr function
   def string(self):
     str_p = f"{self.__class__.__name__}({', '.join([ f'{k}={v!r}' for k, v in self.__dict__.items() if k not in self.excludes ])})"
-    return f"Custom repr():\n{str_p}"
+    return str_p
 
   
 p = Person("Eliam", "LOTONGA", 1421)
 print("--"*10, "Dataclass repr", "--"*10)
 print(f"Original repr():\n{p}")
-print(p.string())
+print(f"Custom repr():\n{p.string()}")
+
+assert p.__repr__() == p.string(), f"repr strings not equals:\n{p.__repr__()} != {p.string()}"
