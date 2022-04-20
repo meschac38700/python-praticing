@@ -57,13 +57,17 @@ def can_add_matrices(m1: Matrix, m2: Matrix) -> None:
     Returns:
         bool: can be added
     """
-    has_same_column_size(m1)
-    has_same_column_size(m2)
-    rows_equal(m1, m2)
-    columns_equal(m1, m2)
+    try:
+        has_same_column_size(m1)
+        has_same_column_size(m2)
+        rows_equal(m1, m2)
+        columns_equal(m1, m2)
+    except ValueError as e:
+        print(e)
+        exit()
 
 
-def add_matrix(m1: Matrix, m2: Matrix) -> Optional[Matrix]:
+def add_matrices(m1: Matrix, m2: Matrix) -> Optional[Matrix]:
     """Add two matrices
 
     Args:
@@ -95,12 +99,12 @@ def show_matrix(matrix: Optional[Matrix]) -> None:
         print("|")
 
 
-if __main__ == __name__:
+if "__main__" == __name__:
     m1: Matrix = [[1, 2, 3], [3, 7, 3]]
     m2: Matrix = [[6, 4, 2], [3, 1, 0]]
 
-    show_matrix(add_matrix(m1, m2))
+    show_matrix(add_matrices(m1, m2))
 
     m1: Matrix = [[-9, 2], [4, 0]]
     m2: Matrix = [[6, 4, 2], [3, 10, 0]]
-    show_matrix(add_matrix(m1, m2))  # raise value error
+    show_matrix(add_matrices(m1, m2))  # raise value error
