@@ -41,7 +41,7 @@ def columns_equal(m1: Matrix, m2: Matrix) -> None:
         m2 (Matrix): matrix to Check
 
     Raises:
-        ValueError: if matrices don't respect matrix add constraints
+        ValueError: Matrices have not the same number of columns
     """
     if not [len(row) for row in m1] == [len(row) for row in m2]:
         raise ValueError("Matrices have not the same number of columns")
@@ -53,9 +53,9 @@ def can_add_matrices(m1: Matrix, m2: Matrix) -> None:
     Args:
         m1 (Matrix):
         m2 (Matrix):
-
-    Returns:
-        bool: can be added
+        
+    Raises:
+        ValueError: if matrices don't respect matrix add constraints
     """
     try:
         has_same_column_size(m1)
