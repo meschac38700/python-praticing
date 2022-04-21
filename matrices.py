@@ -85,26 +85,44 @@ def add_matrices(m1: Matrix, m2: Matrix) -> Optional[Matrix]:
     return [[n1 + n2 for n1, n2 in zip(row1, row2)] for row1, row2 in zip(m1, m2)]
 
 
-def show_matrix(matrix: Optional[Matrix]) -> None:
-    if matrix is None:
+def print_matrix(matrix: Matrix) -> None:
+    """Formatted print of a matrix
+
+    Args:
+        matrix [Matrix]: matrix to format
+    """
+    if not matrix:
         return
 
-    max_nb: str = str(max([max(row) for row in matrix]))
-    space = "".join([" " for _ in max_nb]) + " "
+    import re
+
+    max_matrix_number = str(max([max(row) for row in matrix]))
+    max_spaces: str = re.sub(r"\d", " ", max_matrix_number)
 
     for row in matrix:
-        print("|" + space[:-1], end="")
+        print(end="\t| ")
         for row_nb in row:
-            print(row_nb, end=space[: len(space) - len(str(row_nb))])
-        print("|")
+            str_row_nb = f"{row_nb}{max_spaces}"[:len(max_matrix_number)]
+            print(str_row_nb, end=" | ")
+
+        print()
+
+    print("\n", "===="*10, ">\n", sep='')
 
 
 if "__main__" == __name__:
     m1: Matrix = [[1, 2, 3], [3, 7, 3]]
     m2: Matrix = [[6, 4, 2], [3, 1, 0]]
+    print_matrix(add_matrices(m1, m2) or [])
 
-    show_matrix(add_matrices(m1, m2))
-
+    m1: Matrix = [[99, 232, 323], [98, 76, 54]]
+    m2: Matrix = [[6, 4, 2], [3, 10, 0]]
+    print_matrix(add_matrices(m1, m2) or [])
+    
+    m1: Matrix = [[909, 232, 323], [908, 760, 540], [99, 232, 323]]
+    m2: Matrix = [[698, 467, 208], [354, 100, 890], [98, 76, 54]]
+    print_matrix(add_matrices(m1, m2) or [])
+    
     m1: Matrix = [[-9, 2], [4, 0]]
     m2: Matrix = [[6, 4, 2], [3, 10, 0]]
-    show_matrix(add_matrices(m1, m2))  # raise value error
+    print_matrix(add_matrices(m1, m2) or [])  # raise value error => Matrices have not the same number of columns
